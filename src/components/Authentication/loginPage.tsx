@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { login } from "../../helper/authentication";
+import { useNavigate } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -41,6 +42,7 @@ export default function SignIn() {
     username: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -51,9 +53,8 @@ export default function SignIn() {
     console.log(formData);
     try {
       const user = await login(formData);
-      console.log(user);
       window.localStorage.setItem("user", JSON.stringify(user));
-      //   setUser(user);
+      navigate("/");
     } catch (err: any) {
       setErrorMessage(err.response.data.error);
       setTimeout(() => {

@@ -27,4 +27,8 @@ const signup = async (signupInfo: signupCredentials) => {
   return signupResponse.data;
 };
 
-export { login, signup };
+const isLoggedIn = (): string | null => {
+  return localStorage.getItem("user");
+};
+
+export { login, signup, isLoggedIn };
