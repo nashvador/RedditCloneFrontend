@@ -10,7 +10,8 @@ import { Grid } from "@mui/material";
 export const UserContext = createContext({} as any);
 
 function App() {
-  const [user, setUser] = useState<string | null>(isLoggedIn);
+  const [user, setUser] = useState<string | null>(isLoggedIn());
+  console.log(user);
 
   return (
     <UserContext.Provider value={user}>
@@ -24,11 +25,10 @@ function App() {
       >
         <Grid item xs={9} md={9}>
           <Header />
-          <UserPage />
         </Grid>
         <Routes>
           <Route path="/login" element={<SignIn />} />
-          <Route path="/user" element={<UserPage />} />
+          <Route path="/user/:id" element={<UserPage />} />
         </Routes>
       </Grid>
     </UserContext.Provider>

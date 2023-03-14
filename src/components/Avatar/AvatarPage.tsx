@@ -5,7 +5,7 @@ const AvatarUser = ({
   height,
   width,
 }: {
-  username: string;
+  username: string | undefined;
   height: number;
   width: number;
 }) => {

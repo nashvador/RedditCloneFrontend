@@ -54,7 +54,7 @@ export default function SignIn() {
     try {
       const user = await login(formData);
       window.localStorage.setItem("user", JSON.stringify(user));
-      navigate("/");
+      navigate("/user");
     } catch (err: any) {
       setErrorMessage(err.response.data.error);
       setTimeout(() => {
