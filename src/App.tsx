@@ -2,7 +2,7 @@ import { createContext, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import SignIn from "./components/Authentication/loginPage";
 import { isLoggedIn } from "./helper/authentication";
-import { UserPage } from "./components/Authentication/userPage";
+import { UserPage } from "./components/UserPages/userPage";
 import "./App.css";
 import { Header } from "./components/Header/header";
 import { Grid } from "@mui/material";

@@ -1,31 +1,34 @@
-import AvatarUser from "../Avatar/AvatarPage";
 import { useState, createContext, useContext, useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
-import { UserContext } from "../../App";
+import { UserProfile } from "./UserProfile";
 
 export const UserPage = () => {
-  const username = useParams().id;
-  const [userPageInfo, setUserPageInfo] = useState<any>({});
+  const username = useParams().id?.toString();
+  const [userCardInfo, setUserCardInfo] = useState<any>({});
 
   useEffect(() => {
-    const getUserPageInfo = async () => {
+    const getUserCardInfo = async () => {
       const userInfoFromBackend = await axios.get(
         process.env.REACT_APP_API_ENDPOINT! + "api/users/" + username
       );
-      setUserPageInfo(userInfoFromBackend.data);
+      setUserCardInfo(userInfoFromBackend.data);
     };
-    getUserPageInfo();
+    getUserCardInfo();
   }, [username]);
-  console.log(userPageInfo);
   // const user = JSON.parse(useContext(UserContext));
   // const { username } = user;
   // console.log(username);
   return (
-    <Grid container direction="row" alignItems="center" justifyContent="center">
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+    >
       <Grid item xs={9} md={9}>
-        <AvatarUser username={username} height={100} width={100} />
+        <UserProfile userCardInfo={userCardInfo} />
       </Grid>
     </Grid>
   );
