@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import AvatarUser from "../Avatar/AvatarPage";
 import Typography from "@mui/material/Typography";
-import { compareDates } from "../../helper/datesfunction";
+import { compareDateWithPresent } from "../../helper/datesfunction";
 
 type userCardInfoType = {
   id: number;
@@ -49,7 +49,7 @@ export const UserProfile = ({
           <Typography>Comment Karma: {commentKarma}</Typography>
           <Typography>Post Karma: {postKarma}</Typography>
           <Typography variant="body2">
-            fedditor for {compareDates(createdAt)} days{" "}
+            fedditor for {compareDateWithPresent(createdAt)} days{" "}
           </Typography>
         </CardContent>
       </Card>

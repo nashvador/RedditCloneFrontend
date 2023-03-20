@@ -1,18 +1,20 @@
-import { Fragment } from "react";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import { UserContext } from "../../App";
 
 import { Button, Grid, Typography } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
 import RedditIcon from "@mui/icons-material/Reddit";
-
 import AvatarUser from "../Avatar/AvatarPage";
+
+type user = {
+  token: string;
+  username: string;
+  name: string;
+};
 
 const Header = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(useContext(UserContext));
-  const { username } = user;
+  const userJson = localStorage.getItem("user");
+  let user: user | null = userJson !== null ? JSON.parse(userJson) : null;
 
   return (
     <Grid
@@ -23,7 +25,7 @@ const Header = () => {
       justifyContent="center"
     >
       <Grid item>
-        <RedditIcon />
+        <RedditIcon onClick={() => navigate("/")} />
       </Grid>
       <Grid item>
         {user ? (
@@ -35,16 +37,23 @@ const Header = () => {
             alignItems="center"
           >
             <Grid item>
-              <Typography>{username}</Typography>
+              <Typography>{user.username}</Typography>
             </Grid>
             <Grid item>
-              <AvatarUser username={username} height={30} width={30} />
+              <AvatarUser username={user.username} height={30} width={30} />
             </Grid>
             <Grid item>
               <MessageIcon sx={{ height: 30, width: 30 }} />
             </Grid>
             <Grid item>
-              <Button>Log out</Button>
+              <Button
+                onClick={() => {
+                  localStorage.clear();
+                  user = null;
+                }}
+              >
+                Log out
+              </Button>
             </Grid>
           </Grid>
         ) : (

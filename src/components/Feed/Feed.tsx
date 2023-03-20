@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ReactComponentElement } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid/Grid";
-import Card from "@mui/material/Card/Card";
+import { Post } from "./Post";
 
-type post = {
+export type post = {
   commentCount: number;
   createdAt: Date;
   id: number;
@@ -15,9 +15,8 @@ type post = {
 };
 
 export const Feed = () => {
-  const [feedData, setFeedData] = useState<post | null>(null);
+  const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [showing, setShowing] = useState<boolean>(false);
 
   useEffect(() => {
     const getFeedDataFromBackend = async (): Promise<void> => {
@@ -30,5 +29,35 @@ export const Feed = () => {
     getFeedDataFromBackend();
   }, []);
   console.log(feedData);
-  return <Grid container>{loading ? "spinner" : "test"}</Grid>;
+
+  const feedComponent = () => {
+    if (feedData) {
+      return feedData.map((postItem: post) => (
+        <Grid item>
+          <Post
+            postTitle={postItem.postTitle}
+            user={postItem.user}
+            commentCount={postItem.commentCount}
+            postContent={postItem.postContent}
+            id={postItem.id}
+            upVotes={postItem.upVotes}
+            createdAt={postItem.createdAt}
+            updatedAt={postItem.updatedAt}
+          />
+        </Grid>
+      ));
+    }
+  };
+
+  return (
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+    >
+      {loading ? <div></div> : feedComponent()}
+    </Grid>
+  );
 };
