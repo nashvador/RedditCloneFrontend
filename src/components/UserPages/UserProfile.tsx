@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import AvatarUser from "../Avatar/AvatarPage";
 import Typography from "@mui/material/Typography";
+import { compareDates } from "../../helper/datesfunction";
 
 type userCardInfoType = {
   id: number;
@@ -32,12 +33,6 @@ export const UserProfile = ({
     else return { color: "black" };
   };
 
-  const compareDates = (): number => {
-    const diff = new Date().getTime().valueOf() - new Date(createdAt).valueOf();
-    const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
-
   return (
     <Box
       display="flex"
@@ -54,7 +49,7 @@ export const UserProfile = ({
           <Typography>Comment Karma: {commentKarma}</Typography>
           <Typography>Post Karma: {postKarma}</Typography>
           <Typography variant="body2">
-            fedditor for {compareDates()} days{" "}
+            fedditor for {compareDates(createdAt)} days{" "}
           </Typography>
         </CardContent>
       </Card>

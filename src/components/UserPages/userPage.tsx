@@ -9,7 +9,7 @@ export const UserPage = () => {
   const [userCardInfo, setUserCardInfo] = useState<any>({});
 
   useEffect(() => {
-    const getUserCardInfo = async () => {
+    const getUserCardInfo = async (): Promise<void> => {
       const userInfoFromBackend = await axios.get(
         process.env.REACT_APP_API_ENDPOINT! + "api/users/" + username
       );

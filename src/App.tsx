@@ -6,6 +6,7 @@ import { UserPage } from "./components/UserPages/userPage";
 import "./App.css";
 import { Header } from "./components/Header/header";
 import { Grid } from "@mui/material";
+import { Feed } from "./components/Feed/Feed";
 
 export const UserContext = createContext({} as any);
 
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<SignIn />} />
           <Route path="/user/:id" element={<UserPage />} />
+          <Route path="/" element={<Feed />} />
         </Routes>
       </Grid>
     </UserContext.Provider>
