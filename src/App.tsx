@@ -7,10 +7,10 @@ import "./App.css";
 import { Header } from "./components/Header/header";
 import { Grid } from "@mui/material";
 import { Feed } from "./components/Feed/Feed";
+import { CreatePost } from "./components/Editing and Creation Pages/CreatePost";
 
 function App() {
   const [user, setUser] = useState<string | null>(isLoggedIn());
-  console.log(user);
 
   return (
     <Grid
@@ -27,7 +27,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<SignIn />} />
         <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/" element={<Feed postUrl="/api/post" userUrl="" />} />
+        <Route path="/" element={<Feed postUrl="api/post" userUrl="" />} />
+        <Route path="/createPost" element={<CreatePost />} />
       </Routes>
     </Grid>
   );

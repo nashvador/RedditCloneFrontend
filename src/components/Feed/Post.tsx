@@ -20,6 +20,7 @@ export const Post = ({
   updatedAt,
   commentCount,
   upVotes,
+  id,
 }: post) => {
   return (
     <Card
@@ -33,6 +34,7 @@ export const Post = ({
           cursor: "pointer",
         },
       }}
+      key={id}
     >
       <Stack direction="row">
         <Stack

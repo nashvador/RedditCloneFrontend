@@ -2,6 +2,7 @@ import { useState, useEffect, ReactComponentElement } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid/Grid";
 import { Post } from "./Post";
+import { CreatePostAndSorter } from "./CreatePostAndSorter";
 
 export type post = {
   commentCount: number;
@@ -11,6 +12,19 @@ export type post = {
   postTitle: string;
   upVotes: string;
   updatedAt: Date;
+  user: { username: string };
+};
+
+export type comment = {
+  id: number;
+  commentText: string;
+  upVotes: number;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number;
+  postId: number;
+  commentRespondToId: number | null;
+  post: { postTitle: string };
   user: { username: string };
 };
 
@@ -51,6 +65,7 @@ export const Feed = ({
             upVotes={postItem.upVotes}
             createdAt={postItem.createdAt}
             updatedAt={postItem.updatedAt}
+            key={postItem.id}
           />
         </Grid>
       ));
@@ -65,6 +80,9 @@ export const Feed = ({
       alignItems="center"
       spacing={2}
     >
+      <Grid item>
+        <CreatePostAndSorter />
+      </Grid>
       {loading ? <div></div> : feedComponent()}
     </Grid>
   );

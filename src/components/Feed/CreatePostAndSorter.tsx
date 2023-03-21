@@ -1,24 +1,23 @@
-import { SyntheticEvent, useState } from "react";
 import Box from "@mui/material/Box";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Card from "@mui/material/Card";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
-export const CenteredProfileNavBar = () => {
-  const [value, setValue] = useState(0);
+export const CreatePostAndSorter = () => {
+  const navigate = useNavigate();
 
-  const handleChange = (event: SyntheticEvent, newValue: number) => {
-    setValue(newValue);
+  const handleCreatePostNavigation = (): void => {
+    if (localStorage.getItem("user") !== null || undefined) {
+      navigate("/createPost");
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
-    <Box sx={{ width: "350px", bgcolor: "background.paper" }}>
-      <Card>
-        <Tabs value={value} onChange={handleChange} centered>
-          <Tab label="Posts" />
-          <Tab label="Comments" />
-          <Tab label="Likes" />
-        </Tabs>
+    <Box sx={{ width: "530px", bgcolor: "background.paper" }}>
+      <Card sx={{ height: "50px" }}>
+        <Button onClick={handleCreatePostNavigation}>Create New Post</Button>
       </Card>
     </Box>
   );
