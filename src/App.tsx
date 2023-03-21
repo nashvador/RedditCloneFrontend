@@ -27,7 +27,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<SignIn />} />
         <Route path="/user/:id" element={<UserPage />} />
-        <Route path="/" element={<Feed />} />
+        <Route path="/" element={<Feed postUrl="/api/post" userUrl="" />} />
       </Routes>
     </Grid>
   );

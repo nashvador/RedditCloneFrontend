@@ -23,9 +23,18 @@ const Header = () => {
       direction="row"
       alignItems="center"
       justifyContent="center"
+      marginBottom="2rem"
     >
       <Grid item>
-        <RedditIcon onClick={() => navigate("/")} />
+        <RedditIcon
+          sx={{
+            ":hover": {
+              color: "#FF4500",
+              cursor: "pointer",
+            },
+          }}
+          onClick={() => navigate("/")}
+        />
       </Grid>
       <Grid item>
         {user ? (
@@ -39,7 +48,7 @@ const Header = () => {
             <Grid item>
               <Typography>{user.username}</Typography>
             </Grid>
-            <Grid item>
+            <Grid item onClick={() => navigate(`/user/${user?.username}`)}>
               <AvatarUser username={user.username} height={30} width={30} />
             </Grid>
             <Grid item>

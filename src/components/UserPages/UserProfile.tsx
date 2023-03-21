@@ -1,10 +1,10 @@
 import Card from "@mui/material/Card";
 import { Box } from "@mui/system";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import AvatarUser from "../Avatar/AvatarPage";
 import Typography from "@mui/material/Typography";
 import { compareDateWithPresent } from "../../helper/datesfunction";
+import { Stack } from "@mui/material";
 
 type userCardInfoType = {
   id: number;
@@ -37,20 +37,27 @@ export const UserProfile = ({
     <Box
       display="flex"
       flexDirection="column"
-      alignContent="center"
-      justifyContent="center"
+      alignItems="center"
+      justifyItems="center"
     >
       <Card>
         <CardContent>
-          <AvatarUser username={username} width={100} height={100} />
-          <Typography variant="h5" sx={adminOrDisabledColor}>
-            {username} {tag ? `(${tag})` : ""}
-          </Typography>
-          <Typography>Comment Karma: {commentKarma}</Typography>
-          <Typography>Post Karma: {postKarma}</Typography>
-          <Typography variant="body2">
-            fedditor for {compareDateWithPresent(createdAt)} days{" "}
-          </Typography>
+          <Stack
+            direction="column"
+            alignItems="center"
+            justifyItems="center"
+            spacing={1}
+          >
+            <AvatarUser username={username} width={100} height={100} />
+            <Typography variant="h5" sx={adminOrDisabledColor}>
+              {username} {tag ? `(${tag})` : ""}
+            </Typography>
+            <Typography>Comment Karma: {commentKarma}</Typography>
+            <Typography>Post Karma: {postKarma}</Typography>
+            <Typography variant="body2">
+              fedditor for {compareDateWithPresent(createdAt)} days{" "}
+            </Typography>
+          </Stack>
         </CardContent>
       </Card>
     </Box>

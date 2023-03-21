@@ -14,21 +14,29 @@ export type post = {
   user: { username: string };
 };
 
-export const Feed = () => {
+export const Feed = ({
+  postUrl,
+  userUrl,
+}: {
+  postUrl: string;
+  userUrl: string | undefined;
+}) => {
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const getFeedDataFromBackend = async (): Promise<void> => {
+    const getFeedDataFromBackend = async (
+      url: string,
+      requestParams: string = ""
+    ): Promise<void> => {
       const feedDataFromBackend = await axios.get(
-        process.env.REACT_APP_API_ENDPOINT! + "api/post"
+        process.env.REACT_APP_API_ENDPOINT! + url + requestParams
       );
       setFeedData(feedDataFromBackend.data);
       setLoading(false);
     };
-    getFeedDataFromBackend();
+    getFeedDataFromBackend(postUrl, userUrl);
   }, []);
-  console.log(feedData);
 
   const feedComponent = () => {
     if (feedData) {

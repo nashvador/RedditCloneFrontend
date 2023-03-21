@@ -3,6 +3,8 @@ import axios from "axios";
 import Grid from "@mui/material/Grid";
 import { useParams } from "react-router-dom";
 import { UserProfile } from "./UserProfile";
+import { CenteredProfileNavBar } from "./userProfileNavBar";
+import { Feed } from "../Feed/Feed";
 
 export const UserPage = () => {
   const username = useParams().id?.toString();
@@ -26,9 +28,16 @@ export const UserPage = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
+      spacing={2}
     >
       <Grid item xs={9} md={9}>
         <UserProfile userCardInfo={userCardInfo} />
+      </Grid>
+      <Grid item>
+        <CenteredProfileNavBar />
+      </Grid>
+      <Grid item>
+        <Feed postUrl="api/post/userId/" userUrl={username} />
       </Grid>
     </Grid>
   );
