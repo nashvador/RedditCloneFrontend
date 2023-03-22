@@ -48,7 +48,16 @@ const Header = () => {
             <Grid item>
               <Typography>{user.username}</Typography>
             </Grid>
-            <Grid item onClick={() => navigate(`/user/${user?.username}`)}>
+            <Grid
+              item
+              sx={{
+                ":hover": {
+                  borderColor: "black",
+                  cursor: "pointer",
+                },
+              }}
+              onClick={() => navigate(`/user/${user?.username}`)}
+            >
               <AvatarUser username={user.username} height={30} width={30} />
             </Grid>
             <Grid item>

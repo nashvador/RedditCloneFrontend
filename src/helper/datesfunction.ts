@@ -8,8 +8,8 @@ const compareCreatedAndUpdatedDates = (
   createdDate: Date,
   updatedDate: Date
 ): boolean => {
-  if (new Date(createdDate) === new Date(updatedDate)) return true;
-  return false;
+  if (createdDate === updatedDate) return true;
+  else return false;
 };
 
 export { compareDateWithPresent, compareCreatedAndUpdatedDates };

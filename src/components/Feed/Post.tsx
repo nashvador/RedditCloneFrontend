@@ -22,6 +22,7 @@ export const Post = ({
   upVotes,
   id,
 }: post) => {
+  console.log(new Date(createdAt), new Date(updatedAt));
   return (
     <Card
       sx={{
@@ -69,13 +70,16 @@ export const Post = ({
             <Typography>Posted by {user.username}</Typography>
             <AvatarUser username={user.username} width={30} height={30} />
             <Typography variant="body2">
-              {compareDateWithPresent(createdAt)} days ago
+              {compareDateWithPresent(createdAt)} day
+              {compareDateWithPresent(createdAt) > 1 ? "s" : ""} ago
             </Typography>
-            {!compareCreatedAndUpdatedDates(createdAt, updatedAt) ? (
+            {compareCreatedAndUpdatedDates(createdAt, updatedAt) ? (
+              ""
+            ) : (
               <Tooltip title={new Date(updatedAt).toDateString()}>
                 <Typography variant="subtitle2">(edited)</Typography>
               </Tooltip>
-            ) : null}
+            )}
           </Stack>
 
           <Typography variant="h4">{postTitle}</Typography>

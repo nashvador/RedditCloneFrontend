@@ -5,19 +5,7 @@ import AvatarUser from "../Avatar/AvatarPage";
 import Typography from "@mui/material/Typography";
 import { compareDateWithPresent } from "../../helper/datesfunction";
 import { Stack } from "@mui/material";
-
-type userCardInfoType = {
-  id: number;
-  username: string;
-  name: string;
-  commentKarma: number;
-  postKarma: number;
-  admin: boolean;
-  disabled: boolean;
-  tag: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+import { userCardInfoType } from "./userPage";
 
 export const UserProfile = ({
   userCardInfo,
