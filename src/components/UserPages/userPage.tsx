@@ -58,7 +58,11 @@ export const UserPage = () => {
             <CenteredProfileNavBar />
           </Grid>
           <Grid item>
-            <Feed postUrl="api/post/userId/" userUrl={username} />
+            <Feed
+              postUrl="api/post/userId/"
+              userUrl={username}
+              newsFeed={false}
+            />
           </Grid>
         </Grid>
       );
@@ -79,7 +83,6 @@ export const UserPage = () => {
     }
   }
 
-  console.log(userCardInfo);
   {
     return generateUserPage();
   }

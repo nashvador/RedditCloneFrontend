@@ -82,7 +82,7 @@ export const Post = ({
             )}
           </Stack>
 
-          <Typography variant="h4">{postTitle}</Typography>
+          <Typography variant="h5">{postTitle}</Typography>
           <Typography variant="body1">{postContent}</Typography>
           <Stack
             direction="row"

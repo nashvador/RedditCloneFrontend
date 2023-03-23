@@ -31,9 +31,11 @@ export type comment = {
 export const Feed = ({
   postUrl,
   userUrl,
+  newsFeed,
 }: {
   postUrl: string;
   userUrl: string | undefined;
+  newsFeed: boolean;
 }) => {
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -80,9 +82,7 @@ export const Feed = ({
       alignItems="center"
       spacing={2}
     >
-      <Grid item>
-        <CreatePostAndSorter />
-      </Grid>
+      <Grid item>{newsFeed ? <CreatePostAndSorter /> : null}</Grid>
       {loading ? <div></div> : feedComponent()}
     </Grid>
   );

@@ -67,7 +67,7 @@ const Header = () => {
               <Button
                 onClick={() => {
                   localStorage.clear();
-                  user = null;
+                  navigate("/login");
                 }}
               >
                 Log out
