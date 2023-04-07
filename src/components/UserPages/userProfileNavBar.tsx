@@ -7,6 +7,10 @@ import Card from "@mui/material/Card";
 export const CenteredProfileNavBar = () => {
   const [value, setValue] = useState<number>(0);
 
+  const isLoggedIn = (): boolean => {
+    return localStorage.getItem("user") !== null;
+  };
+
   const handleChange = (event: SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

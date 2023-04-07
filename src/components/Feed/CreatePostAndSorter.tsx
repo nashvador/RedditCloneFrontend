@@ -16,7 +16,7 @@ export const CreatePostAndSorter = () => {
 
   return (
     <Box sx={{ width: "530px", bgcolor: "background.paper" }}>
-      <Card sx={{ height: "50px" }}>
+      <Card sx={{ height: "30px", justifyItems: "space-between" }}>
         <Button onClick={handleCreatePostNavigation}>Create New Post</Button>
       </Card>
     </Box>
