@@ -6,6 +6,7 @@ import { UserProfile } from "./UserProfile";
 import { CenteredProfileNavBar } from "./userProfileNavBar";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Feed } from "../Feed/Feed";
+import { isLoggedIn } from "../../helper/authentication";
 
 export type userCardInfoType = {
   id: number;
@@ -37,9 +38,14 @@ export const UserPage = () => {
     };
     getUserCardInfo();
   }, [username]);
-  // const user = JSON.parse(useContext(UserContext));
-  // const { username } = user;
-  // console.log(username);
+
+  const userToken = isLoggedIn();
+  let userPageEqualsUser: boolean = false;
+  if (userToken) {
+    if (username === JSON.parse(userToken).username) {
+      userPageEqualsUser = true;
+    }
+  }
 
   function generateUserPage() {
     if (!loading && userCardInfo) {
@@ -55,7 +61,7 @@ export const UserPage = () => {
             <UserProfile userCardInfo={userCardInfo} />
           </Grid>
           <Grid item>
-            <CenteredProfileNavBar />
+            <CenteredProfileNavBar userPageEqualsUser={userPageEqualsUser} />
           </Grid>
           <Grid item>
             <Feed
