@@ -43,7 +43,8 @@ export const UserProfile = ({
             <Typography>Comment Karma: {commentKarma}</Typography>
             <Typography>Post Karma: {postKarma}</Typography>
             <Typography variant="body2">
-              fedditor for {compareDateWithPresent(createdAt)} days{" "}
+              fedditor for {compareDateWithPresent(createdAt)} day
+              {compareDateWithPresent(createdAt) > 1 ? "s" : null}
             </Typography>
           </Stack>
         </CardContent>

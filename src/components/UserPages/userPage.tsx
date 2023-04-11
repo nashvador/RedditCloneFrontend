@@ -7,6 +7,7 @@ import { CenteredProfileNavBar } from "./userProfileNavBar";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Feed } from "../Feed/Feed";
 import { isLoggedIn } from "../../helper/authentication";
+import { Typography } from "@mui/material";
 
 export type userCardInfoType = {
   id: number;
@@ -33,8 +34,12 @@ export const UserPage = () => {
       const userInfoFromBackend = await axios.get(
         process.env.REACT_APP_API_ENDPOINT! + "api/users/" + username
       );
-      setUserCardInfo(userInfoFromBackend.data);
-      setLoading(false);
+      if (userInfoFromBackend) {
+        setUserCardInfo(userInfoFromBackend.data);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
     };
     getUserCardInfo();
   }, [username]);
@@ -73,19 +78,35 @@ export const UserPage = () => {
         </Grid>
       );
     } else {
-      return (
-        <Grid
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          spacing={2}
-        >
-          <Grid item>
-            <CircularProgress />
+      if (!loading) {
+        return (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            spacing={2}
+          >
+            <Grid item>
+              <Typography>The user you searched for does not exist</Typography>
+            </Grid>
           </Grid>
-        </Grid>
-      );
+        );
+      } else {
+        return (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justifyContent="center"
+            spacing={2}
+          >
+            <Grid item>
+              <CircularProgress />
+            </Grid>
+          </Grid>
+        );
+      }
     }
   }
 
