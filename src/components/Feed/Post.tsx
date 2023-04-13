@@ -21,7 +21,7 @@ export const Post = ({
   commentCount,
   upVotes,
   id,
-}: post) => {
+}: post): JSX.Element => {
   return (
     <Card
       sx={{

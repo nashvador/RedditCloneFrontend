@@ -5,13 +5,9 @@ import MessageIcon from "@mui/icons-material/Message";
 import RedditIcon from "@mui/icons-material/Reddit";
 import AvatarUser from "../Avatar/AvatarPage";
 
-type user = {
-  token: string;
-  username: string;
-  name: string;
-};
+import type { user } from "../../helper/authentication";
 
-const Header = () => {
+const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const userJson = localStorage.getItem("user");
   let user: user | null = userJson !== null ? JSON.parse(userJson) : null;

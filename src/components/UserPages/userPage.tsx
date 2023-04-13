@@ -22,7 +22,7 @@ export type userCardInfoType = {
   updatedAt: Date;
 };
 
-export const UserPage = () => {
+export const UserPage = (): JSX.Element => {
   const username = useParams().id?.toString();
   const [userCardInfo, setUserCardInfo] = useState<userCardInfoType | null>(
     null
@@ -52,7 +52,7 @@ export const UserPage = () => {
     }
   }
 
-  function generateUserPage() {
+  function generateUserPage(): JSX.Element {
     if (!loading && userCardInfo) {
       return (
         <Grid

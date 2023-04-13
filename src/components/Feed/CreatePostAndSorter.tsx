@@ -3,7 +3,7 @@ import Card from "@mui/material/Card";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 
-export const CreatePostAndSorter = () => {
+export const CreatePostAndSorter = (): JSX.Element => {
   const navigate = useNavigate();
 
   const handleCreatePostNavigation = (): void => {

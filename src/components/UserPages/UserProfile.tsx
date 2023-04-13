@@ -11,7 +11,7 @@ export const UserProfile = ({
   userCardInfo,
 }: {
   userCardInfo: userCardInfoType;
-}) => {
+}): JSX.Element => {
   const { username, commentKarma, postKarma, admin, disabled, tag, createdAt } =
     userCardInfo;
 

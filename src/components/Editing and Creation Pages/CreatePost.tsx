@@ -14,12 +14,18 @@ type formDataType = {
   postContent: FormDataEntryValue | null;
 };
 
+type authorizationConfigType = {
+  headers: {
+    Authorization: string;
+  };
+};
+
 export const CreatePost = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const userAuthorizationToken = localStorage.getItem("user");
-  let authorizationConfig: object | null = null;
+  let authorizationConfig: authorizationConfigType | null = null;
   if (userAuthorizationToken) {
     authorizationConfig = {
       headers: {

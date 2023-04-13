@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactComponentElement } from "react";
+import { useState, useEffect, ReactElement } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid/Grid";
 import { Post } from "./Post";
@@ -13,6 +13,7 @@ export type post = {
   upVotes: string;
   updatedAt: Date;
   user: { username: string };
+  likes?: { likeOrDislike: boolean }[] | [];
 };
 
 export type comment = {
@@ -36,7 +37,7 @@ export const Feed = ({
   postUrl: string;
   userUrl: string | undefined;
   newsFeed: boolean;
-}) => {
+}): JSX.Element => {
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -54,7 +55,7 @@ export const Feed = ({
     getFeedDataFromBackend(postUrl, userUrl);
   }, []);
 
-  const feedComponent = () => {
+  const feedComponent = (): JSX.Element[] | null => {
     if (feedData) {
       return feedData.map((postItem: post) => (
         <Grid item>
@@ -72,6 +73,7 @@ export const Feed = ({
         </Grid>
       ));
     }
+    return null;
   };
 
   return (

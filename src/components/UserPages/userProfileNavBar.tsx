@@ -8,7 +8,7 @@ export const CenteredProfileNavBar = ({
   userPageEqualsUser,
 }: {
   userPageEqualsUser: boolean;
-}) => {
+}): JSX.Element => {
   const [value, setValue] = useState<number>(0);
 
   const handleChange = (event: SyntheticEvent, newValue: number) => {
