@@ -6,9 +6,9 @@ type loginCredentials = {
 };
 
 type signupCredentials = {
-  username: string;
-  name: string;
-  password: string;
+  username: FormDataEntryValue | null;
+  name: FormDataEntryValue | null;
+  password: FormDataEntryValue | null;
 };
 
 const login = async (loginInfo: loginCredentials) => {
@@ -21,7 +21,7 @@ const login = async (loginInfo: loginCredentials) => {
 
 const signup = async (signupInfo: signupCredentials) => {
   const signupResponse = await axios.post(
-    process.env.REACT_APP_API_ENDPOINT! + "api/signup",
+    process.env.REACT_APP_API_ENDPOINT! + "api/users",
     signupInfo
   );
   return signupResponse.data;

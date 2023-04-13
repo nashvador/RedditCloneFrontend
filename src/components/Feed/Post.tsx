@@ -22,7 +22,6 @@ export const Post = ({
   upVotes,
   id,
 }: post) => {
-  console.log(new Date(createdAt), new Date(updatedAt));
   return (
     <Card
       sx={{

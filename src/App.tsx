@@ -6,6 +6,7 @@ import { Header } from "./components/Header/header";
 import { Grid } from "@mui/material";
 import { Feed } from "./components/Feed/Feed";
 import { CreatePost } from "./components/Editing and Creation Pages/CreatePost";
+import SignUp from "./components/Authentication/SignupPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           element={<Feed postUrl="api/post" userUrl="" newsFeed={true} />}
         />
         <Route path="/createPost" element={<CreatePost />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </Grid>
   );

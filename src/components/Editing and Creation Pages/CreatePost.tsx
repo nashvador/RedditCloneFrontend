@@ -4,6 +4,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Stack from "@mui/system/Stack";
+import Alert from "@mui/material/Alert";
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 type formDataType = {
@@ -13,6 +16,8 @@ type formDataType = {
 
 export const CreatePost = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
+
   const userAuthorizationToken = localStorage.getItem("user");
   let authorizationConfig: object | null = null;
   if (userAuthorizationToken) {
@@ -23,33 +28,33 @@ export const CreatePost = () => {
     };
   }
   const backendPostCreation = async (formData: formDataType): Promise<void> => {
-    const backendPostCreationRequest = await axios.post(
-      process.env.REACT_APP_API_ENDPOINT! + "api/post",
-      formData,
-      authorizationConfig!
-    );
-    console.log(backendPostCreationRequest.data);
-  };
-
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     try {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      backendPostCreation({
-        postTitle: data.get("title"),
-        postContent: data.get("content"),
-      });
-    } catch (err) {
-      setErrorMessage("sup");
-      console.log(errorMessage);
+      const backendPostCreationRequest = await axios.post(
+        process.env.REACT_APP_API_ENDPOINT! + "api/post",
+        formData,
+        authorizationConfig!
+      );
+      if (backendPostCreationRequest.status === 201) navigate("/");
+    } catch (err: any) {
+      setErrorMessage(err.response.data.error);
       setTimeout(() => {
         setErrorMessage(null);
       }, 3000);
     }
   };
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    await backendPostCreation({
+      postTitle: data.get("title"),
+      postContent: data.get("content"),
+    });
+  };
+
   return (
     <Box width="500px" component="form" onSubmit={handleSubmit} noValidate>
+      {errorMessage ? <Alert severity="error">{errorMessage}</Alert> : ""}
       <Card>
         <Stack
           direction="column"

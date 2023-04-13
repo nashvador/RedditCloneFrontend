@@ -77,7 +77,7 @@ const Header = () => {
         ) : (
           <Grid item>
             <Button onClick={() => navigate("/login")}>Log in</Button>
-            <Button>Sign up</Button>
+            <Button onClick={() => navigate("/signup")}>Sign up</Button>
           </Grid>
         )}
       </Grid>
