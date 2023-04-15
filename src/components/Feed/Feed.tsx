@@ -3,6 +3,7 @@ import axios from "axios";
 import Grid from "@mui/material/Grid/Grid";
 import { Post } from "./Post";
 import { CreatePostAndSorter } from "./CreatePostAndSorter";
+import { userAuthorizationFunction } from "../../helper/authentication";
 
 export type post = {
   commentCount: number;
@@ -10,10 +11,10 @@ export type post = {
   id: number;
   postContent: string;
   postTitle: string;
-  upVotes: string;
+  upVotes: number;
   updatedAt: Date;
   user: { username: string };
-  likes?: { likeOrDislike: boolean }[] | [];
+  likes?: { likeOrDislike: boolean }[];
 };
 
 export type comment = {
@@ -47,7 +48,8 @@ export const Feed = ({
       requestParams: string = ""
     ): Promise<void> => {
       const feedDataFromBackend = await axios.get(
-        process.env.REACT_APP_API_ENDPOINT! + url + requestParams
+        process.env.REACT_APP_API_ENDPOINT! + url + requestParams,
+        userAuthorizationFunction()!
       );
       setFeedData(feedDataFromBackend.data);
       setLoading(false);
@@ -69,6 +71,7 @@ export const Feed = ({
             createdAt={postItem.createdAt}
             updatedAt={postItem.updatedAt}
             key={postItem.id}
+            likes={postItem.likes ? postItem.likes : undefined}
           />
         </Grid>
       ));

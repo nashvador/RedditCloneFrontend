@@ -9,8 +9,7 @@ import {
   compareCreatedAndUpdatedDates,
 } from "../../helper/datesfunction";
 import CommentIcon from "@mui/icons-material/Comment";
-import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { Likes } from "../Editing and Creation Pages/Likes";
 
 export const Post = ({
   postTitle,
@@ -21,6 +20,7 @@ export const Post = ({
   commentCount,
   upVotes,
   id,
+  likes,
 }: post): JSX.Element => {
   return (
     <Card
@@ -37,28 +37,13 @@ export const Post = ({
       key={id}
     >
       <Stack direction="row">
-        <Stack
-          direction="column"
-          justifyItems="center"
-          alignItems="center"
-          paddingRight={1}
-        >
-          <ArrowUpwardIcon
-            sx={{
-              ":hover": {
-                color: "#FF4500",
-              },
-            }}
-          ></ArrowUpwardIcon>
-          <Typography variant="body2">{upVotes}</Typography>
-          <ArrowDownwardIcon
-            sx={{
-              ":hover": {
-                color: "#453BB5",
-              },
-            }}
-          ></ArrowDownwardIcon>
-        </Stack>
+        <Likes
+          upVotes={upVotes}
+          likeOrDislike={
+            likes && likes?.length > 0 ? likes[0].likeOrDislike : undefined
+          }
+          postId={id}
+        />
         <Stack direction="column" spacing={1}>
           <Stack
             direction="row"

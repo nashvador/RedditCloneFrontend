@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/system/Stack";
 import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
+import { userAuthorizationFunction } from "../../helper/authentication";
 
 import axios from "axios";
 
@@ -14,31 +15,16 @@ type formDataType = {
   postContent: FormDataEntryValue | null;
 };
 
-type authorizationConfigType = {
-  headers: {
-    Authorization: string;
-  };
-};
-
 export const CreatePost = () => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const userAuthorizationToken = localStorage.getItem("user");
-  let authorizationConfig: authorizationConfigType | null = null;
-  if (userAuthorizationToken) {
-    authorizationConfig = {
-      headers: {
-        Authorization: `bearer ${JSON.parse(userAuthorizationToken).token}`,
-      },
-    };
-  }
   const backendPostCreation = async (formData: formDataType): Promise<void> => {
     try {
       const backendPostCreationRequest = await axios.post(
         process.env.REACT_APP_API_ENDPOINT! + "api/post",
         formData,
-        authorizationConfig!
+        userAuthorizationFunction()!
       );
       if (backendPostCreationRequest.status === 201) navigate("/");
     } catch (err: any) {

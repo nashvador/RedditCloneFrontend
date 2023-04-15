@@ -19,6 +19,12 @@ export type user = {
   disabled: boolean;
 };
 
+type authorizationConfigType = {
+  headers: {
+    Authorization: string;
+  };
+};
+
 const login = async (loginInfo: loginCredentials): Promise<user> => {
   const loginResponse = await axios.post(
     process.env.REACT_APP_API_ENDPOINT! + "api/login",
@@ -40,4 +46,16 @@ const isLoggedIn = (): string | null => {
   return localStorage.getItem("user");
 };
 
-export { login, signup, isLoggedIn };
+const userAuthorizationFunction = (): authorizationConfigType | null => {
+  const userAuthorizationToken = isLoggedIn();
+  let authorizationConfig: authorizationConfigType | null = null;
+  if (userAuthorizationToken) {
+    authorizationConfig = {
+      headers: {
+        Authorization: `bearer ${JSON.parse(userAuthorizationToken).token}`,
+      },
+    };
+  }
+  return authorizationConfig;
+};
+export { login, signup, isLoggedIn, userAuthorizationFunction };
