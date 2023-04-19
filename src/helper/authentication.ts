@@ -46,6 +46,12 @@ const isLoggedIn = (): string | null => {
   return localStorage.getItem("user");
 };
 
+const returnParsedToken = (): user | null => {
+  if (isLoggedIn()) {
+    return JSON.parse(isLoggedIn()!);
+  } else return null;
+};
+
 const userAuthorizationFunction = (): authorizationConfigType | null => {
   const userAuthorizationToken = isLoggedIn();
   let authorizationConfig: authorizationConfigType | null = null;
@@ -58,4 +64,10 @@ const userAuthorizationFunction = (): authorizationConfigType | null => {
   }
   return authorizationConfig;
 };
-export { login, signup, isLoggedIn, userAuthorizationFunction };
+export {
+  login,
+  signup,
+  isLoggedIn,
+  userAuthorizationFunction,
+  returnParsedToken,
+};

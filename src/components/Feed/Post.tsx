@@ -1,16 +1,10 @@
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import AvatarUser from "../Avatar/AvatarPage";
-import Tooltip from "@mui/material/Tooltip";
-import { post } from "./Feed";
-import {
-  compareDateWithPresent,
-  compareCreatedAndUpdatedDates,
-} from "../../helper/datesfunction";
 import CommentIcon from "@mui/icons-material/Comment";
+import { post } from "./Feed";
 import { Likes } from "../Editing and Creation Pages/Likes";
-
+import { PostHeader } from "./PostHeader";
 export const Post = ({
   postTitle,
   user,
@@ -26,7 +20,7 @@ export const Post = ({
     <Card
       sx={{
         minWidth: 500,
-        padding: "1rem",
+        // padding: "1rem",
         border: 1,
         borderColor: "white",
         ":hover": {
@@ -44,28 +38,8 @@ export const Post = ({
           }
           postId={id}
         />
-        <Stack direction="column" spacing={1}>
-          <Stack
-            direction="row"
-            justifyItems="center"
-            alignItems="center"
-            spacing={1}
-          >
-            <Typography>Posted by {user.username}</Typography>
-            <AvatarUser username={user.username} width={30} height={30} />
-            <Typography variant="body2">
-              {compareDateWithPresent(createdAt)} day
-              {compareDateWithPresent(createdAt) > 1 ? "s" : ""} ago
-            </Typography>
-            {compareCreatedAndUpdatedDates(createdAt, updatedAt) ? (
-              ""
-            ) : (
-              <Tooltip title={new Date(updatedAt).toDateString()}>
-                <Typography variant="subtitle2">(edited)</Typography>
-              </Tooltip>
-            )}
-          </Stack>
-
+        <Stack direction="column" spacing={1} padding={1}>
+          <PostHeader user={user} createdAt={createdAt} updatedAt={updatedAt} />
           <Typography variant="h5">{postTitle}</Typography>
           <Typography variant="body1">{postContent}</Typography>
           <Stack

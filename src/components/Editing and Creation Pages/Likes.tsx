@@ -81,7 +81,10 @@ export const Likes = ({
       direction="column"
       justifyItems="center"
       alignItems="center"
-      paddingRight={1}
+      padding={1}
+      sx={{
+        backgroundColor: "grey.100",
+      }}
     >
       <ArrowUpwardIcon
         sx={{

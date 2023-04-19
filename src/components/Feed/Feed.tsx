@@ -1,6 +1,7 @@
-import { useState, useEffect, ReactElement } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Grid from "@mui/material/Grid/Grid";
+import { CircularProgress } from "@mui/material";
 import { Post } from "./Post";
 import { CreatePostAndSorter } from "./CreatePostAndSorter";
 import { userAuthorizationFunction } from "../../helper/authentication";
@@ -41,6 +42,7 @@ export const Feed = ({
 }): JSX.Element => {
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const [sortLink, setSortLink] = useState<string>("earliest");
 
   useEffect(() => {
     const getFeedDataFromBackend = async (
@@ -48,19 +50,22 @@ export const Feed = ({
       requestParams: string = ""
     ): Promise<void> => {
       const feedDataFromBackend = await axios.get(
-        process.env.REACT_APP_API_ENDPOINT! + url + requestParams,
+        process.env.REACT_APP_API_ENDPOINT! +
+          url +
+          requestParams +
+          `?order=${sortLink}`,
         userAuthorizationFunction()!
       );
       setFeedData(feedDataFromBackend.data);
       setLoading(false);
     };
     getFeedDataFromBackend(postUrl, userUrl);
-  }, []);
+  }, [sortLink]);
 
   const feedComponent = (): JSX.Element[] | null => {
     if (feedData) {
       return feedData.map((postItem: post) => (
-        <Grid item>
+        <Grid item key={postItem.id}>
           <Post
             postTitle={postItem.postTitle}
             user={postItem.user}
@@ -87,8 +92,22 @@ export const Feed = ({
       alignItems="center"
       spacing={2}
     >
-      <Grid item>{newsFeed ? <CreatePostAndSorter /> : null}</Grid>
-      {loading ? <div></div> : feedComponent()}
+      <Grid item>
+        {newsFeed ? (
+          <CreatePostAndSorter
+            sortLink={sortLink}
+            setSortLink={setSortLink}
+            setLoading={setLoading}
+          />
+        ) : null}
+      </Grid>
+      {loading ? (
+        <Grid item>
+          <CircularProgress />
+        </Grid>
+      ) : (
+        feedComponent()
+      )}
     </Grid>
   );
 };
