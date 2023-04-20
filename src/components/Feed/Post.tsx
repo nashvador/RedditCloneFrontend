@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
@@ -5,6 +6,7 @@ import CommentIcon from "@mui/icons-material/Comment";
 import { post } from "./Feed";
 import { Likes } from "../Editing and Creation Pages/Likes";
 import { PostHeader } from "./PostHeader";
+import { PostCommentEditor } from "./PostCommentEditor";
 export const Post = ({
   postTitle,
   user,
@@ -15,12 +17,16 @@ export const Post = ({
   upVotes,
   id,
   likes,
+  edited,
 }: post): JSX.Element => {
+  const [editingInfo, setEditingInfo] = useState<boolean>(false);
+  const [deleteInfo, setDeleteInfo] = useState<boolean>(false);
+  const [contentInfo, setContentInfo] = useState<string>(postContent);
+
   return (
     <Card
       sx={{
         minWidth: 500,
-        // padding: "1rem",
         border: 1,
         borderColor: "white",
         ":hover": {
@@ -39,9 +45,27 @@ export const Post = ({
           postId={id}
         />
         <Stack direction="column" spacing={1} padding={1}>
-          <PostHeader user={user} createdAt={createdAt} updatedAt={updatedAt} />
+          <PostHeader
+            user={user}
+            createdAt={createdAt}
+            updatedAt={updatedAt}
+            editingInfo={editingInfo}
+            setEditingInfo={setEditingInfo}
+            deleteInfo={deleteInfo}
+            setDeleteInfo={setDeleteInfo}
+            edited={edited}
+          />
           <Typography variant="h5">{postTitle}</Typography>
-          <Typography variant="body1">{postContent}</Typography>
+          {editingInfo ? (
+            <PostCommentEditor
+              setEditingInfo={setEditingInfo}
+              contentInfo={contentInfo}
+              setContentInfo={setContentInfo}
+              url={`api/post/${id}`}
+            />
+          ) : (
+            <Typography variant="body1">{contentInfo}</Typography>
+          )}
           <Stack
             direction="row"
             spacing={1}

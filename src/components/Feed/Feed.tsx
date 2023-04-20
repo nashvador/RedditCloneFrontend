@@ -14,6 +14,7 @@ export type post = {
   postTitle: string;
   upVotes: number;
   updatedAt: Date;
+  edited: boolean;
   user: { username: string };
   likes?: { likeOrDislike: boolean }[];
 };
@@ -27,6 +28,7 @@ export type comment = {
   userId: number;
   postId: number;
   commentRespondToId: number | null;
+  edited: boolean;
   post: { postTitle: string };
   user: { username: string };
 };
@@ -43,6 +45,8 @@ export const Feed = ({
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [sortLink, setSortLink] = useState<string>("earliest");
+
+  // UseCallback Hook for deleting feed
 
   useEffect(() => {
     const getFeedDataFromBackend = async (
@@ -77,6 +81,7 @@ export const Feed = ({
             updatedAt={postItem.updatedAt}
             key={postItem.id}
             likes={postItem.likes ? postItem.likes : undefined}
+            edited={postItem.edited}
           />
         </Grid>
       ));

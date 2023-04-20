@@ -1,11 +1,8 @@
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import AvatarUser from "../Avatar/AvatarPage";
-import {
-  compareCreatedAndUpdatedDates,
-  compareDateWithPresent,
-} from "../../helper/datesfunction";
+import { compareDateWithPresent } from "../../helper/datesfunction";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -16,14 +13,21 @@ export const PostHeader = ({
   createdAt,
   updatedAt,
   user,
+  editingInfo,
+  setEditingInfo,
+  deleteInfo,
+  setDeleteInfo,
+  edited,
 }: {
   createdAt: Date;
   updatedAt: Date;
   user: { username: string };
+  editingInfo: boolean;
+  setEditingInfo: Dispatch<SetStateAction<boolean>>;
+  deleteInfo: boolean;
+  setDeleteInfo: Dispatch<SetStateAction<boolean>>;
+  edited: boolean;
 }): JSX.Element => {
-  const [editingInfo, setEditingInfo] = useState<boolean>(false);
-  const [deleteInfo, setDeleteInfo] = useState<boolean>(false);
-
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Stack
@@ -39,11 +43,7 @@ export const PostHeader = ({
           {compareDateWithPresent(createdAt)} day
           {compareDateWithPresent(createdAt) > 1 ? "s" : ""} ago
         </Typography>
-        {compareCreatedAndUpdatedDates(createdAt, updatedAt) ? (
-          ""
-        ) : (
-          <Typography variant="subtitle2">(edited)</Typography>
-        )}
+        {edited ? <Typography variant="subtitle2">(edited)</Typography> : null}
       </Stack>
       {(returnParsedToken() &&
         returnParsedToken()?.username === user.username) ||
