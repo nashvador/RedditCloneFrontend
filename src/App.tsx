@@ -8,7 +8,13 @@ import { Feed } from "./components/Feed/Feed";
 import { CreatePost } from "./components/Editing and Creation Pages/CreatePost";
 import SignUp from "./components/Authentication/SignupPage";
 
+import { connectSocketToBackend } from "./helper/authentication";
+
 function App() {
+  const socket = connectSocketToBackend();
+  console.log(socket);
+  socket?.connect();
+  socket?.emit("message", { text: "Hello, server!" });
   return (
     <Grid
       container

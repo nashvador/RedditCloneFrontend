@@ -5,12 +5,21 @@ import MessageIcon from "@mui/icons-material/Message";
 import RedditIcon from "@mui/icons-material/Reddit";
 import AvatarUser from "../Avatar/AvatarPage";
 
-import type { user } from "../../helper/authentication";
+import { connectSocketToBackend, user } from "../../helper/authentication";
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const userJson = localStorage.getItem("user");
   let user: user | null = userJson !== null ? JSON.parse(userJson) : null;
+
+  const handleLogout = (): void => {
+    const socket = connectSocketToBackend();
+    console.log(socket);
+    socket?.disconnect();
+
+    localStorage.clear();
+    navigate("/login");
+  };
 
   return (
     <Grid
@@ -60,14 +69,7 @@ const Header = (): JSX.Element => {
               <MessageIcon sx={{ height: 30, width: 30 }} />
             </Grid>
             <Grid item>
-              <Button
-                onClick={() => {
-                  localStorage.clear();
-                  navigate("/login");
-                }}
-              >
-                Log out
-              </Button>
+              <Button onClick={handleLogout}>Log out</Button>
             </Grid>
           </Grid>
         ) : (

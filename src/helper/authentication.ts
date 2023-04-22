@@ -1,4 +1,5 @@
 import axios from "axios";
+import io, { Socket } from "socket.io-client";
 
 type loginCredentials = {
   username: string;
@@ -64,10 +65,32 @@ const userAuthorizationFunction = (): authorizationConfigType | null => {
   }
   return authorizationConfig;
 };
+
+const connectSocketToBackend = (): Socket | null => {
+  const userAuthorizationToken = isLoggedIn();
+  let socket: Socket | null = null;
+  if (userAuthorizationToken) {
+    socket = io(process.env.REACT_APP_API_ENDPOINT!, {
+      auth: {
+        token: JSON.parse(userAuthorizationToken).token,
+      },
+    });
+  }
+  socket?.on("connection", () => {
+    console.log("Connected to server");
+  });
+
+  socket?.on("disconnect", () => {
+    console.log("Disconnected from server");
+  });
+  return socket;
+};
+
 export {
   login,
   signup,
   isLoggedIn,
   userAuthorizationFunction,
   returnParsedToken,
+  connectSocketToBackend,
 };
