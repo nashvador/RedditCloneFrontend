@@ -4,7 +4,11 @@ import Typography from "@mui/material/Typography";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import axios from "axios";
-import { userAuthorizationFunction } from "../../helper/authentication";
+import {
+  isLoggedIn,
+  userAuthorizationFunction,
+} from "../../helper/authentication";
+import { useNavigate } from "react-router-dom";
 
 export const Likes = ({
   upVotes,
@@ -17,6 +21,7 @@ export const Likes = ({
 }) => {
   const [liked, setLiked] = useState<boolean | undefined>(undefined);
   const [amountOfUpVotes, setAmountOfUpVotes] = useState<number>(upVotes);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (likeOrDislike) {
@@ -25,54 +30,63 @@ export const Likes = ({
   }, []);
 
   const onClickUpVote = async (): Promise<void> => {
-    const likePostRequest = await axios.post(
-      process.env.REACT_APP_API_ENDPOINT! + `api/like/postIdUpVote/${postId}`,
-      undefined,
-      userAuthorizationFunction()!
-    );
-    if (liked && likePostRequest && likePostRequest.status === 201) {
-      setLiked(undefined);
-      setAmountOfUpVotes((upVotes) => upVotes - 1);
-    } else if (
-      liked === undefined &&
-      likePostRequest &&
-      likePostRequest.status === 200
-    ) {
-      setLiked(true);
-      setAmountOfUpVotes((upVotes) => upVotes + 1);
-    } else if (
-      liked === false &&
-      likePostRequest &&
-      likePostRequest.status === 201
-    ) {
-      setLiked(true);
-      setAmountOfUpVotes((upVotes) => upVotes + 2);
+    if (isLoggedIn()) {
+      const likePostRequest = await axios.post(
+        process.env.REACT_APP_API_ENDPOINT! + `api/like/postIdUpVote/${postId}`,
+        undefined,
+        userAuthorizationFunction()!
+      );
+      if (liked && likePostRequest && likePostRequest.status === 201) {
+        setLiked(undefined);
+        setAmountOfUpVotes((upVotes) => upVotes - 1);
+      } else if (
+        liked === undefined &&
+        likePostRequest &&
+        likePostRequest.status === 200
+      ) {
+        setLiked(true);
+        setAmountOfUpVotes((upVotes) => upVotes + 1);
+      } else if (
+        liked === false &&
+        likePostRequest &&
+        likePostRequest.status === 201
+      ) {
+        setLiked(true);
+        setAmountOfUpVotes((upVotes) => upVotes + 2);
+      }
+    } else {
+      navigate("/login");
     }
   };
 
   const onClickDownVote = async (): Promise<void> => {
-    const likePostRequest = await axios.post(
-      process.env.REACT_APP_API_ENDPOINT! + `api/like/postIdDownVote/${postId}`,
-      undefined,
-      userAuthorizationFunction()!
-    );
-    if (liked && likePostRequest && likePostRequest.status === 201) {
-      setLiked(false);
-      setAmountOfUpVotes((upVotes) => upVotes - 2);
-    } else if (
-      liked === undefined &&
-      likePostRequest &&
-      likePostRequest.status === 200
-    ) {
-      setLiked(false);
-      setAmountOfUpVotes((upVotes) => upVotes - 1);
-    } else if (
-      liked === false &&
-      likePostRequest &&
-      likePostRequest.status === 201
-    ) {
-      setLiked(undefined);
-      setAmountOfUpVotes((upVotes) => upVotes + 1);
+    if (isLoggedIn()) {
+      const likePostRequest = await axios.post(
+        process.env.REACT_APP_API_ENDPOINT! +
+          `api/like/postIdDownVote/${postId}`,
+        undefined,
+        userAuthorizationFunction()!
+      );
+      if (liked && likePostRequest && likePostRequest.status === 201) {
+        setLiked(false);
+        setAmountOfUpVotes((upVotes) => upVotes - 2);
+      } else if (
+        liked === undefined &&
+        likePostRequest &&
+        likePostRequest.status === 200
+      ) {
+        setLiked(false);
+        setAmountOfUpVotes((upVotes) => upVotes - 1);
+      } else if (
+        liked === false &&
+        likePostRequest &&
+        likePostRequest.status === 201
+      ) {
+        setLiked(undefined);
+        setAmountOfUpVotes((upVotes) => upVotes + 1);
+      }
+    } else {
+      navigate("/login");
     }
   };
 

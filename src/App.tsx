@@ -9,8 +9,10 @@ import { CreatePost } from "./components/Editing and Creation Pages/CreatePost";
 import SignUp from "./components/Authentication/SignupPage";
 
 import { connectSocketToBackend } from "./helper/authentication";
+import Comments from "./components/Feed/Comment";
 
 function App() {
+  // Put useeffect
   const socket = connectSocketToBackend();
   console.log(socket);
   socket?.connect();
@@ -36,6 +38,7 @@ function App() {
         />
         <Route path="/createPost" element={<CreatePost />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/comment" element={<Comments />} />
       </Routes>
     </Grid>
   );
