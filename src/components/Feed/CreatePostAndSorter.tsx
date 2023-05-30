@@ -21,16 +21,15 @@ export const CreatePostAndSorter = ({
   const navigate = useNavigate();
 
   const handleCreatePostNavigation = (): void => {
-    if (isLoggedIn !== null || undefined) {
-      navigate("/createPost");
-    } else {
+    if (isLoggedIn() === (null || undefined)) {
       navigate("/login");
+    } else {
+      navigate("/createPost");
     }
   };
 
   const handleChange = (event: SelectChangeEvent) => {
     setSortLink(event.target.value as string);
-    console.log(event.target.value);
     setLoading(true);
   };
 
