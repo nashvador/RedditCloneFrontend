@@ -19,9 +19,9 @@ export const CreatePostAndSorter = ({
   setLoading: Dispatch<SetStateAction<boolean>>;
 }): JSX.Element => {
   const navigate = useNavigate();
-
+  console.log(isLoggedIn());
   const handleCreatePostNavigation = (): void => {
-    if (isLoggedIn() === (null || undefined)) {
+    if (isLoggedIn() === null) {
       navigate("/login");
     } else {
       navigate("/createPost");

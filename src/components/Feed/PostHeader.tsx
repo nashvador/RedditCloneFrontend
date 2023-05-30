@@ -1,4 +1,4 @@
-import { useState, Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import AvatarUser from "../Avatar/AvatarPage";
@@ -8,6 +8,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ClearIcon from "@mui/icons-material/Clear";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { returnParsedToken } from "../../helper/authentication";
+
+import { useNavigate } from "react-router-dom";
 
 export const PostHeader = ({
   createdAt,
@@ -28,6 +30,7 @@ export const PostHeader = ({
   setDeleteInfo: Dispatch<SetStateAction<boolean>>;
   edited: boolean;
 }): JSX.Element => {
+  const navigate = useNavigate();
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Stack
@@ -37,7 +40,16 @@ export const PostHeader = ({
         spacing={1}
         alignSelf="flex-start"
       >
-        <Typography>Posted by {user.username}</Typography>
+        <Typography
+          onClick={() => navigate(`user/${user.username}`)}
+          sx={{
+            ":hover": {
+              textDecoration: "underline #000000",
+            },
+          }}
+        >
+          Posted by {user.username}
+        </Typography>
         <AvatarUser username={user.username} width={30} height={30} />
         <Typography variant="body2">
           {compareDateWithPresent(createdAt)} day

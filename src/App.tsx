@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import SignIn from "./components/Authentication/loginPage";
 import { UserPage } from "./components/UserPages/userPage";
-import "./App.css";
 import { Header } from "./components/Header/header";
 import { Grid } from "@mui/material";
 import { Feed } from "./components/Feed/Feed";
@@ -26,7 +25,7 @@ function App() {
       justifyContent="top"
       style={{ minHeight: "100vh" }}
     >
-      <Grid item xs={9} md={9}>
+      <Grid item xs={9} md={9} mt={2}>
         <Header />
       </Grid>
       <Routes>
