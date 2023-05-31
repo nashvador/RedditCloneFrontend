@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
+import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import CommentIcon from "@mui/icons-material/Comment";
 import { post } from "./Feed";
@@ -22,11 +23,12 @@ export const Post = ({
   const [editingInfo, setEditingInfo] = useState<boolean>(false);
   const [deleteInfo, setDeleteInfo] = useState<boolean>(false);
   const [contentInfo, setContentInfo] = useState<string>(postContent);
+  const navigate = useNavigate();
 
   return (
     <Card
       sx={{
-        minWidth: 500,
+        minWidth: "30rem",
         border: 1,
         borderColor: "white",
         ":hover": {
@@ -44,7 +46,12 @@ export const Post = ({
           }
           postId={id}
         />
-        <Stack direction="column" spacing={1} padding={1}>
+        <Stack
+          direction="column"
+          spacing={1}
+          padding={1}
+          onClick={() => navigate(`/post/${id}`)}
+        >
           <PostHeader
             user={user}
             createdAt={createdAt}

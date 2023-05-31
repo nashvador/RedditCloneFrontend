@@ -38,14 +38,14 @@ export const CreatePostAndSorter = ({
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        width: "500px",
+        width: "30rem",
         bgcolor: "background.paper",
       }}
     >
       <Card
         sx={{
           height: "80px",
-          width: "500px",
+          width: "30rem",
           display: "flex",
           alignItems: "center",
           padding: "0.5rem",

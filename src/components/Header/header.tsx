@@ -1,13 +1,20 @@
+import { Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import MessageIcon from "@mui/icons-material/Message";
 import RedditIcon from "@mui/icons-material/Reddit";
 import AvatarUser from "../Avatar/AvatarPage";
 
 import { connectSocketToBackend, user } from "../../helper/authentication";
 
-const Header = (): JSX.Element => {
+const Header = ({
+  setSearchValue,
+  setSearchValueBoolean,
+}: {
+  setSearchValue: Dispatch<SetStateAction<string | null>>;
+  setSearchValueBoolean: Dispatch<SetStateAction<boolean>>;
+}): JSX.Element => {
   const navigate = useNavigate();
   const userJson = localStorage.getItem("user");
   let user: user | null = userJson !== null ? JSON.parse(userJson) : null;
@@ -19,6 +26,12 @@ const Header = (): JSX.Element => {
 
     localStorage.clear();
     navigate("/login");
+  };
+
+  const handleReturnHome = (): void => {
+    setSearchValue(null);
+    setSearchValueBoolean(false);
+    navigate("/");
   };
 
   return (
@@ -38,7 +51,7 @@ const Header = (): JSX.Element => {
               cursor: "pointer",
             },
           }}
-          onClick={() => navigate("/")}
+          onClick={handleReturnHome}
         />
       </Grid>
       <Grid item>

@@ -2,6 +2,32 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, Grid, Typography, Box } from "@mui/material";
 import axios from "axios";
 
+// have post fetch the comments and then pass it as parameter
+
+// const Comments = ({ comments }) => {
+//   const newReplies = useState([])
+
+//   return (<>
+//     comments.map((comment) => {
+//       <div for displaying comment />
+//       // add reply button with onclick to update newReplies
+//       <Comments comments={comment.replies} />
+//     })
+//     newReplies.map((reply) => {
+//       <Comments comments={newReplies} />
+//     }
+//   </>)
+// }
+
+// const Post = ({ post }) => {
+//   const comments = useEffect(...)
+
+//   return (
+//     <div for displaying post />
+//     <Comments comments={comments} />
+//   )
+// }
+
 const Comment = ({ comment }: { comment: any }) => {
   return (
     <Box sx={{ p: 2 }}>

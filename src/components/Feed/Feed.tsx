@@ -37,10 +37,14 @@ export const Feed = ({
   postUrl,
   userUrl,
   newsFeed,
+  searchValue,
+  searchValueBoolean,
 }: {
   postUrl: string;
   userUrl: string | undefined;
   newsFeed: boolean;
+  searchValue?: string | null;
+  searchValueBoolean?: boolean;
 }): JSX.Element => {
   const [feedData, setFeedData] = useState<Array<post> | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -57,19 +61,20 @@ export const Feed = ({
         process.env.REACT_APP_API_ENDPOINT! +
           url +
           requestParams +
-          `?order=${sortLink}`,
+          `?order=${sortLink}` +
+          `${searchValueBoolean ? `&search=${searchValue}` : ""}`,
         userAuthorizationFunction()!
       );
       setFeedData(feedDataFromBackend.data);
       setLoading(false);
     };
     getFeedDataFromBackend(postUrl, userUrl);
-  }, [sortLink]);
+  }, [sortLink, searchValue]);
 
   const feedComponent = (): JSX.Element[] | null => {
     if (feedData) {
       return feedData.map((postItem: post) => (
-        <Grid item key={postItem.id}>
+        <Grid item key={postItem.id} padding={1}>
           <Post
             postTitle={postItem.postTitle}
             user={postItem.user}
