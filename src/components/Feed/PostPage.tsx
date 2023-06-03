@@ -7,8 +7,8 @@ import { CircularProgress } from "@mui/material";
 import { comment, post } from "./Feed";
 import { userAuthorizationFunction } from "../../helper/authentication";
 import { useParams } from "react-router-dom";
-import { PostCommentEditor } from "./PostCommentEditor";
 import { CreateCommentTable } from "./CreateCommentTable";
+import Comment from "./Comment";
 
 export const PostPage = () => {
   const [individualPostInfo, SetIndividualPostInfo] = useState<post | null>(
@@ -51,12 +51,12 @@ export const PostPage = () => {
     }
   };
 
-  console.log(errorMessage);
   useEffect(() => {
     getPostDataFromBackend("api/post/", postId);
     getCommentDataFromBackend(`api/comment/postId/${postId}`);
   }, [postId]);
-  console.log(individualPostInfo);
+
+  console.log(commentInfo);
 
   return (
     <Grid
@@ -85,7 +85,7 @@ export const PostPage = () => {
           />
         </Grid>
       ) : (
-        <Grid>
+        <Grid item>
           <CircularProgress />
         </Grid>
       )}
@@ -96,6 +96,15 @@ export const PostPage = () => {
           url=""
         />
       </Grid>
+      {!commnentloading && commentInfo ? (
+        <Grid item>
+          <Comment comment={commentInfo} />{" "}
+        </Grid>
+      ) : (
+        <Grid>
+          <CircularProgress />
+        </Grid>
+      )}
     </Grid>
   );
 };

@@ -74,7 +74,6 @@ function App() {
         />
         <Route path="/createPost" element={<CreatePost />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/comment" element={<Comments />} />
       </Routes>
     </Grid>
   );
